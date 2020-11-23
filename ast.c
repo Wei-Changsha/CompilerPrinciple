@@ -1,5 +1,6 @@
 #include "def.h"
 #include "parser.tab.h"
+#include "semantic.c"
 
 struct ASTNode * mknode(int num,int kind,int pos,...){
     struct ASTNode *T=(struct ASTNode *)calloc(sizeof(struct ASTNode),1);
@@ -26,7 +27,6 @@ void display(struct ASTNode *T,int indent)
     case ARRAY:         display(T->ptr[0],indent-3);
                         printf("%*cARRAY： %d\n",indent+3,' ',T->type_int);
                         break;
-
 	case EXT_DEF_LIST:  display(T->ptr[0],indent);    //显示该外部定义（外部变量和函数）列表中的第一个
                         display(T->ptr[1],indent);    //显示该外部定义列表中的其它外部定义
                         break;

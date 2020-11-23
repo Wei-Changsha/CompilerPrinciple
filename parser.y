@@ -8,8 +8,10 @@
 extern int yylineno;
 extern char *yytext;
 extern FILE *yyin;
+int yylex();
 void yyerror(const char* fmt, ...);
 void display(struct ASTNode *,int);
+
 %}
 
 %union {
@@ -52,7 +54,7 @@ void display(struct ASTNode *,int);
 
 %%
 
-program: ExtDefList    { display($1,0);}     //显示语法树,语义分析
+program: ExtDefList    { display($1,0);semantic_Analysis0($1);}     //显示语法树,语义分析
          ; 
 ExtDefList: {$$=NULL;}
           | ExtDef ExtDefList {$$=mknode(2,EXT_DEF_LIST,yylineno,$1,$2);}   //每一个EXTDEFLIST的结点，其第1棵子树对应一个外部变量声明或函数
@@ -68,6 +70,7 @@ ExtDecList:  VarDec      {$$=$1;}       /*每一个EXT_DECLIST的结点，其第
            ;  
 VarDec:  ID          {$$=mknode(0,ID,yylineno);strcpy($$->type_id,$1);}   //ID结点，标识符符号串存放结点的type_id
         |VarDec LM INT RM  {$$=mknode(2,ARRAY,yylineno,$1,$3);$$->type_int=$3;}
+        
         ;
 FuncDec: ID LP VarList RP   {$$=mknode(1,FUNC_DEC,yylineno,$3);strcpy($$->type_id,$1);}//函数名存放在$$->type_id
 	|ID LP  RP   {$$=mknode(0,FUNC_DEC,yylineno);strcpy($$->type_id,$1);$$->ptr[0]=NULL;}//函数名存放在$$->type_id
