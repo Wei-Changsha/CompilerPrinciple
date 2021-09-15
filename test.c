@@ -6,15 +6,19 @@ int fibo(int a){
 	return fibo(a -1) + fibo(a -2);	
 }
 }
-int main(){
 
+int main(){
     int m,n,i;
     m = read();
     i = 1;
+	n ++;
     while(i <=m){
 	    n = fibo(i);
 	    write(n);
 	    i = i + 1;
+		if(i ==4)
+		 continue;
+		
     }
-
+	return 0;
 }

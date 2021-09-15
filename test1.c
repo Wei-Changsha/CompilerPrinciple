@@ -1,14 +1,14 @@
 int m;
 int k;
-int ddd[4];
-int ddd[4];
+int ddd[4][6];
 int a[3];
+
 int x(){
-    int k,l；
+    int k,l;
     int k;//变量重复定义
     int b[4];
-    a = 9;
-    y = 1;
+    a = 9 + 4;
+    y = 1 * a;
     k=1.2;
     k();//对非函数名采用函数调用形式
     y1();//调用未定义或未声明的函数
@@ -18,11 +18,9 @@ int x(){
     1++;//对非左值表达式进行自增、自减运算
     return 1;
 }
-int y(){
+int main(){
     x(6);//函数调用时参数个数不匹配，如实参表达式个数太多、或实参表达式个数太少；
 
-    return 1;
+    return 0;
 }
-int y(){
 
-}
